@@ -39,12 +39,21 @@
     </script>
 </head>
 <body>
+    <h4>DropDown Api</h4>
+    <p>https://riafy-test-saneesh.herokuapp.com/nseStocks/dropDownApi/tech</p>
+    In above api 'tech' is the parameter.
+    <br>
+    <h4>Search Api</h4>
+    <p>https://riafy-test-saneesh.herokuapp.com/nseStocks/searchApi</p>
+    example body: {
+        name:"IOL Chemicals"
+    }
     <div class="container">
         <div class="search">
             <input id="nameBox" type="text" placeholder="search" data-search />
         </div>
-        <div class="items">
-            <div data-filter-item data-filter-name="apple">Apple</div>
+        <div id="items" class="items">
+            <div data-filter-item data-filter-name="apple">Apple11</div>
             <div data-filter-item data-filter-name="google">Google</div>
             <div data-filter-item data-filter-name="microsoft">Microsoft</div>
             <div data-filter-item data-filter-name="hp">HP</div>
