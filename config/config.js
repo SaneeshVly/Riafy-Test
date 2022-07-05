@@ -12,8 +12,8 @@ const appConfig = {
     tokenExpiryTimeInMinute: 525600,
     razorpay_key_id: '',
     razorpay_key_secret: "",
-    port: 9000,
-    adminPort: 9001
+    port: 3000,
+    adminPort: 3001
 }
 const testConfig = {
     privateKey: '',
@@ -28,8 +28,8 @@ const testConfig = {
     tokenExpiryTimeInMinute: 525600,
     razorpay_key_id: '',
     razorpay_key_secret: "",
-    port: 9000,
-    adminPort: 9001
+    port: 3000,
+    adminPort: 3001
 }
 exports.getConfig = function (field) {
     if (production == true) {
