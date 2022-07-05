@@ -32,22 +32,60 @@
     <script>
         $(document).ready(function () {
             $("#nameBox").on("input", function () {
-                if ($(this).val().length < 2) {
-                    $("#items").empty();
-                    return;
-                } else {
+                $("#items").empty();
                     $.post("/nseStocks/dropDownApi/" + $(this).val(),
                         {
                         },
                         function (data, status) {
                             $("#items").empty();
                             for (let i = 0; i < data.doc.length; i++) {
-                                $("#items").append("<div data-filter-item data-filter-name=\"apple\" name=\"apple\">" + data.doc[i].Name + "</div>");
+                                $("#items").append("<div name="+encodeURI(data.doc[i].Name)+" id="+data.doc[i].Name.replace(/ /g,'')+" data-filter-item data-filter-name=\"apple\" >" + data.doc[i].Name + "</div>");
+                                $("#"+data.doc[i].Name.replace(/ /g,'')).click(function() {
+  $.post("/nseStocks/searchApi" ,
+                        {
+                            "name":decodeURI($(this).attr('name'))
+                        },
+                        function (data, status) {
+                            $("#items").empty();
+                            $("#items").html('<span>Name : <h2>'+data.doc.Name+"<h2><br>"+
+                                '<span>Current Market Price : '+data.doc['Current Market Price']+"<br>"+
+                                    '<span>Market Cap : '+data.doc['Market Cap']+"<br>"+
+                                        '<span>Stock P/E : '+data.doc['Stock P/E']+"<br>"+
+                                            '<span>Dividend Yield : '+data.doc['Dividend Yield']+"<br>"+
+                                                '<span>ROCE %: '+data.doc['ROCE %']+"<br>"+
+                                                    '<span>ROE Previous Annum: '+data.doc['ROE Previous Annum']+"<br>"+
+                                                        '<span>Debt to Equity: '+data.doc['Debt to Equity']+"<br>"+
+                                                            '<span>EPS: '+data.doc['EPS']+"<br>"+
+                                                                '<span>Reserves: '+data.doc['Reserves']+"<br>"+
+                                                                    '<span>Debt: '+data.doc['Debt']+"<br>"
+                                            );
+//                             for (let i = 0; i < data.doc.length; i++) {
+//                                 $("#items").append("<div id="+data.doc[i].Name+" data-filter-item data-filter-name=\"apple\" name=\"apple\">" + data.doc[i].Name + "</div>");
+//                                 $("#"+data.doc[i].Name).click(function() {
+//   alert( "Handler for .click() called." );
 
+
+
+
+
+  
+// });
+//                             }
+                            //   alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                        });
+
+
+
+
+
+
+
+
+});
                             }
                             //   alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
                         });
-                }
+            
             });
 
         });
@@ -66,7 +104,11 @@
     }
     <div class="container">
         <div class="search">
-            <input id="nameBox" type="text" placeholder="search" data-search />
+            <input id="nameBox" type="text" style="    width: 100%;
+            height: 41px;
+            background-color: white;
+            border: 1px solid #cccccc;
+            border-radius: 10px;" placeholder="search" data-search />
         </div>
         <div id="items" class="items">
 

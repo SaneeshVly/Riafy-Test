@@ -9,7 +9,7 @@ router.post('/dropDownApi/:searchKey', async function (req, res, next) {
         if(!req.params.searchKey){
             res.status(200).json({ status: false });
         } else {
-            body['Name']= { $regex: new RegExp('.*' + req.params.searchKey + '.*', 'i') }
+            body['Name']= { $regex: new RegExp('^' + req.params.searchKey + '.*', 'i') }
         }
         let doc = await nseStocksTable.find(body).select('Name');
         res.status(200).json({ status: true, doc: doc });
