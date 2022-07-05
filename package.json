@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon EcommerceServer.js"
+    "start": "node serverRun.js"
   },
   "dependencies": {
     "@babel/core": "^7.12.16",
