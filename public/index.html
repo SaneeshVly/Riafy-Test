@@ -1,43 +1,59 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>Riafi Test - Saneesh</title>
-<style>
-    .container {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	width: 50%;
-}
-.search {
-	margin-bottom: 30px;
-}
-.items {
-}
-[data-filter-item] {
-	padding: 15px;
-	background-color: #ccc;
-	border: 1px solid #fff;
-}
-.hidden {
-	display: none;
-}
-</style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script>
-    $(document).ready(function(){
-        $("#nameBox").on("input", function() {
-   $.post("/nseStocks/dropDownApi/"+$(this).val(),
-        {
-        },
-        function(data,status){
-          alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+    <title>Riafi Test - Saneesh</title>
+    <style>
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50%;
+        }
+
+        .search {
+            margin-bottom: 30px;
+        }
+
+        .items {}
+
+        [data-filter-item] {
+            padding: 15px;
+            background-color: #ccc;
+            border: 1px solid #fff;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#nameBox").on("input", function () {
+                if ($(this).val().length < 2) {
+                    $("#items").empty();
+                    return;
+                } else {
+                    $.post("/nseStocks/dropDownApi/" + $(this).val(),
+                        {
+                        },
+                        function (data, status) {
+                            $("#items").empty();
+                            for (let i = 0; i < data.doc.length; i++) {
+                                $("#items").append("<div data-filter-item data-filter-name=\"apple\" name=\"apple\">" + data.doc[i].Name + "</div>");
+
+                            }
+                            //   alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                        });
+                }
+            });
+
         });
-});
-    });
     </script>
 </head>
+
 <body>
     <h4>DropDown Api</h4>
     <p>https://riafy-test-saneesh.herokuapp.com/nseStocks/dropDownApi/tech</p>
@@ -46,20 +62,16 @@
     <h4>Search Api</h4>
     <p>https://riafy-test-saneesh.herokuapp.com/nseStocks/searchApi</p>
     example body: {
-        name:"IOL Chemicals"
+    name:"IOL Chemicals"
     }
     <div class="container">
         <div class="search">
             <input id="nameBox" type="text" placeholder="search" data-search />
         </div>
         <div id="items" class="items">
-            <div data-filter-item data-filter-name="apple">Apple11</div>
-            <div data-filter-item data-filter-name="google">Google</div>
-            <div data-filter-item data-filter-name="microsoft">Microsoft</div>
-            <div data-filter-item data-filter-name="hp">HP</div>
-            <div data-filter-item data-filter-name="dell">Dell</div>
-            <div data-filter-item data-filter-name="samsung">Samsung</div>
+
         </div>
     </div>
 </body>
+
 </html>
